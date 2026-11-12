@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TRENDY TOUCH | Premium Fashion</title>
+<title>TRENDY TOUCH | Premium Fashion Store</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -24,9 +24,9 @@
     border-bottom: 1px solid rgba(212, 170, 85, 0.3);
     display: flex; justify-content: space-between; align-items: center;
   }
-  .logo { font-family: 'Cinzel', serif; color: var(--gold); font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+  .logo { font-family: 'Cinzel', serif; color: var(--gold); font-size: 20px; font-weight: 700; letter-spacing: 1px; cursor: pointer; }
   nav { display: flex; align-items: center; gap: 15px; }
-  nav a { color: #e0e0e0; text-decoration: none; font-size: 13px; font-weight: 500; transition: 0.3s; }
+  nav a { color: #e0e0e0; text-decoration: none; font-size: 13px; font-weight: 500; transition: 0.3s; cursor: pointer; }
   nav a:hover { color: var(--gold); }
   .cart-btn {
     background: rgba(212, 170, 85, 0.15); border: 1px solid var(--gold);
@@ -65,9 +65,9 @@
   .card {
     background: var(--card-bg); border: 1px solid var(--border);
     border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;
-    transition: 0.3s;
+    transition: 0.3s; cursor: pointer;
   }
-  .card:hover { border-color: rgba(212, 170, 85, 0.5); }
+  .card:hover { border-color: rgba(212, 170, 85, 0.5); transform: translateY(-3px); }
   .pic { height: 185px; background: #1e1e1e; overflow: hidden; position: relative; }
   .pic img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
   .card:hover .pic img { transform: scale(1.05); }
@@ -79,15 +79,37 @@
   .card-body { padding: 14px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
   .card h3 { font-size: 15px; font-weight: 600; color: #f5f5f5; margin-bottom: 5px; }
   .price { color: var(--gold-light); font-weight: 700; font-size: 16px; margin-bottom: 10px; }
-  
-  .size-select {
-    width: 100%; padding: 7px; background: #1f1f1f; color: #fff;
-    border: 1px solid #3a3a3a; border-radius: 5px; font-size: 12px; margin-bottom: 10px;
-  }
-  .card button {
+  .card-btn {
     width: 100%; background: var(--gold); color: #090909; border: 0;
-    padding: 10px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer;
+    padding: 9px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer;
   }
+
+  /* Product Details Page View */
+  #productDetailsPage { display: none; padding: 30px 16px; max-width: 900px; margin: auto; }
+  .back-btn { background: #222; color: var(--gold); border: 1px solid var(--gold); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; margin-bottom: 20px; display: inline-block; }
+  .details-container { display: grid; grid-template-columns: 1fr; gap: 25px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  @media(min-width: 768px) { .details-container { grid-template-columns: 1fr 1fr; padding: 30px; } }
+  
+  .details-img-box { height: 320px; border-radius: 8px; overflow: hidden; background: #1a1a1a; }
+  .details-img-box img { width: 100%; height: 100%; object-fit: cover; }
+  
+  .details-info h1 { font-family: 'Cinzel', serif; font-size: 24px; color: #fff; margin-bottom: 10px; }
+  .details-price { font-size: 22px; color: var(--gold-light); font-weight: 700; margin-bottom: 15px; }
+  .details-desc { color: #aaa; font-size: 14px; margin-bottom: 20px; line-height: 1.7; }
+  
+  .option-group { margin-bottom: 15px; }
+  .option-group label { display: block; font-size: 13px; color: var(--gold); margin-bottom: 6px; font-weight: 600; }
+  .color-dots { display: flex; gap: 10px; }
+  .color-dot { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #555; cursor: pointer; }
+  .color-dot.active { border-color: #fff; transform: scale(1.1); }
+  
+  .size-chips { display: flex; gap: 8px; }
+  .size-chip { padding: 6px 12px; background: #1e1e1e; border: 1px solid #444; border-radius: 4px; font-size: 12px; cursor: pointer; color: #fff; }
+  .size-chip.active { background: var(--gold); color: #090909; font-weight: 700; border-color: var(--gold); }
+
+  .action-buttons { display: flex; gap: 10px; margin-top: 25px; }
+  .add-cart-big { flex: 2; background: var(--gold); color: #090909; border: 0; padding: 12px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+  .chat-btn-big { flex: 1; background: #25d366; color: #fff; border: 0; padding: 12px; border-radius: 6px; font-weight: 700; text-decoration: none; text-align: center; display: inline-block; }
 
   /* Features */
   .features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 10px; }
@@ -98,45 +120,25 @@
 
   /* Cart & Checkout Box */
   .box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 25px; }
-  .cart-row {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 12px 0; border-bottom: 1px solid #252525; font-size: 14px;
-  }
-  .qty-ctrl button {
-    background: #262626; color: #fff; border: 1px solid #444;
-    width: 26px; height: 26px; border-radius: 4px; cursor: pointer; font-weight: bold;
-  }
+  .cart-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #252525; font-size: 14px; }
+  .qty-ctrl button { background: #262626; color: #fff; border: 1px solid #444; width: 26px; height: 26px; border-radius: 4px; cursor: pointer; font-weight: bold; }
   .del-btn { background: none; border: none; color: #ff5c5c; font-size: 16px; cursor: pointer; margin-left: 10px; }
   .summary-line { display: flex; justify-content: space-between; margin-top: 12px; font-size: 14px; color: #ccc; }
   .summary-total { display: flex; justify-content: space-between; margin-top: 12px; padding-top: 12px; border-top: 1px solid #333; font-size: 18px; font-weight: 700; color: var(--gold-light); }
 
   /* Form */
   label { display: block; font-size: 12px; color: #aaa; margin-top: 10px; }
-  input, select, textarea {
-    width: 100%; padding: 12px; margin-top: 5px; background: #1d1d1d;
-    border: 1px solid #383838; color: #fff; border-radius: 6px; font-family: inherit; font-size: 14px;
-  }
+  input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; background: #1d1d1d; border: 1px solid #383838; color: #fff; border-radius: 6px; font-family: inherit; font-size: 14px; }
   input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); }
   
-  .payment-info {
-    background: rgba(212, 170, 85, 0.08); border: 1px dashed var(--gold);
-    padding: 12px; border-radius: 8px; text-align: center; margin-top: 18px; font-size: 13px;
-  }
-  .copy-btn {
-    background: #252525; color: var(--gold); border: 1px solid var(--gold);
-    padding: 4px 10px; border-radius: 4px; font-size: 12px; margin-left: 8px; cursor: pointer;
-  }
+  .payment-info { background: rgba(212, 170, 85, 0.08); border: 1px dashed var(--gold); padding: 12px; border-radius: 8px; text-align: center; margin-top: 18px; font-size: 13px; }
+  .copy-btn { background: #252525; color: var(--gold); border: 1px solid var(--gold); padding: 4px 10px; border-radius: 4px; font-size: 12px; margin-left: 8px; cursor: pointer; }
 
   /* Footer */
   footer { text-align: center; background: #0d0d0d; border-top: 1px solid var(--border); padding: 30px 15px; color: #888; font-size: 13px; }
   
-  /* Toast Notification */
-  #toast {
-    visibility: hidden; min-width: 240px; background: var(--gold); color: #090909;
-    text-align: center; border-radius: 6px; padding: 12px; position: fixed;
-    z-index: 999; left: 50%; bottom: 25px; transform: translateX(-50%);
-    font-weight: 700; font-size: 13px; box-shadow: 0 5px 20px rgba(0,0,0,0.6);
-  }
+  /* Toast */
+  #toast { visibility: hidden; min-width: 240px; background: var(--gold); color: #090909; text-align: center; border-radius: 6px; padding: 12px; position: fixed; z-index: 999; left: 50%; bottom: 25px; transform: translateX(-50%); font-weight: 700; font-size: 13px; box-shadow: 0 5px 20px rgba(0,0,0,0.6); }
   #toast.show { visibility: visible; animation: fadein 0.3s, fadeout 0.3s 2s; }
   @keyframes fadein { from {bottom: 10px; opacity: 0;} to {bottom: 25px; opacity: 1;} }
   @keyframes fadeout { from {bottom: 25px; opacity: 1;} to {bottom: 10px; opacity: 0;} }
@@ -145,83 +147,92 @@
 <body>
 
 <header>
-  <div class="logo">✦ TRENDY TOUCH</div>
+  <div class="logo" onclick="goHome()">✦ TRENDY TOUCH</div>
   <nav>
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
+    <a onclick="goHome()">Home</a>
+    <a onclick="goHome()">Shop</a>
     <a href="#checkout" class="cart-btn">🛒 Cart (<span id="cartCount">0</span>)</a>
   </nav>
 </header>
 
-<div class="hero" id="home">
-  <span>New Collection 2026</span>
-  <h1>STYLE THAT <b>DEFINES YOU</b></h1>
-  <p>Discover your perfect look with TRENDY TOUCH. Premium quality fashion crafted for comfort at affordable prices.</p>
-  <a href="#shop" class="btn">EXPLORE COLLECTION</a>
+<!-- MAIN SHOP VIEW -->
+<div id="mainView">
+  <div class="hero" id="home">
+    <span>New Collection 2026</span>
+    <h1>STYLE THAT <b>DEFINES YOU</b></h1>
+    <p>Discover your perfect look with TRENDY TOUCH. Premium quality fashion crafted for comfort at affordable prices.</p>
+    <a href="#shop" class="btn">EXPLORE COLLECTION</a>
+  </div>
+
+  <section id="shop">
+    <h2>OUR COLLECTION</h2>
+    <div class="grid" id="products"></div>
+  </section>
+
+  <section>
+    <h2>WHY TRENDY TOUCH?</h2>
+    <div class="features">
+      <div class="feat-box"><span>✨</span><p>Premium Fabric</p></div>
+      <div class="feat-box"><span>🏷️</span><p>Affordable Price</p></div>
+      <div class="feat-box"><span>🚚</span><p>Fast Home Delivery</p></div>
+      <div class="feat-box"><span>💵</span><p>Cash on Delivery</p></div>
+    </div>
+  </section>
+
+  <section id="checkout">
+    <h2>YOUR CART & CHECKOUT</h2>
+    
+    <div class="box">
+      <div id="cartItems">Your cart is empty. Select items from above!</div>
+      
+      <div id="billSummary" style="display:none;">
+        <div class="summary-line"><span>Subtotal:</span><span>৳<span id="subtotal">0</span></span></div>
+        <div class="summary-line"><span>Delivery Charge:</span><span>৳<span id="deliveryFee">60</span></span></div>
+        <div class="summary-total"><span>Total Payable:</span><span>৳<span id="total">0</span></span></div>
+      </div>
+    </div>
+
+    <div class="box">
+      <h3 style="color:var(--gold-light); margin-bottom:10px; font-size:18px;">Delivery Details</h3>
+      <form id="orderForm">
+        <label>Full Name *</label>
+        <input id="name" placeholder="আপনার পূর্ণ নাম লিখুন" required>
+        
+        <label>Mobile Number *</label>
+        <input id="phone" type="tel" placeholder="01XXXXXXXXX" required>
+        
+        <label>Delivery Area *</label>
+        <select id="area" onchange="renderCart()">
+          <option value="60">Inside Dhaka (ঢাকার ভেতরে — ৳60)</option>
+          <option value="120">Outside Dhaka (ঢাকার বাইরে — ৳120)</option>
+        </select>
+
+        <label>Full Delivery Address *</label>
+        <textarea id="address" rows="2" placeholder="বাসা নং, রোড, এলাকা, জেলা" required></textarea>
+        
+        <label>Payment Method *</label>
+        <select id="payment">
+          <option value="Cash on Delivery">Cash on Delivery (পণ্য হাতে পেয়ে টাকা)</option>
+          <option value="bKash">bKash (Send Money)</option>
+          <option value="Nagad">Nagad (Send Money)</option>
+        </select>
+
+        <button class="btn" type="submit" style="width:100%; margin-top:18px;">CONFIRM ORDER ON WHATSAPP</button>
+      </form>
+
+      <div class="payment-info">
+        bKash / Nagad Personal: <strong id="payNum" style="color:var(--gold-light)">01618281457</strong>
+        <button type="button" class="copy-btn" onclick="copyNumber()">Copy</button>
+      </div>
+    </div>
+  </section>
 </div>
 
-<section id="shop">
-  <h2>OUR COLLECTION</h2>
-  <div class="grid" id="products"></div>
-</section>
-
-<section>
-  <h2>WHY TRENDY TOUCH?</h2>
-  <div class="features">
-    <div class="feat-box"><span>✨</span><p>Premium Fabric</p></div>
-    <div class="feat-box"><span>🏷️</span><p>Affordable Price</p></div>
-    <div class="feat-box"><span>🚚</span><p>Fast Home Delivery</p></div>
-    <div class="feat-box"><span>💵</span><p>Cash on Delivery</p></div>
-  </div>
-</section>
-
-<section id="checkout">
-  <h2>YOUR CART & CHECKOUT</h2>
-  
-  <div class="box">
-    <div id="cartItems">Your cart is empty. Select items from above!</div>
-    
-    <div id="billSummary" style="display:none;">
-      <div class="summary-line"><span>Subtotal:</span><span>৳<span id="subtotal">0</span></span></div>
-      <div class="summary-line"><span>Delivery Charge:</span><span>৳<span id="deliveryFee">60</span></span></div>
-      <div class="summary-total"><span>Total Payable:</span><span>৳<span id="total">0</span></span></div>
-    </div>
-  </div>
-
-  <div class="box">
-    <h3 style="color:var(--gold-light); margin-bottom:10px; font-size:18px;">Delivery Details</h3>
-    <form id="orderForm">
-      <label>Full Name *</label>
-      <input id="name" placeholder="আপনার পূর্ণ নাম লিখুন" required>
-      
-      <label>Mobile Number *</label>
-      <input id="phone" type="tel" placeholder="01XXXXXXXXX" required>
-      
-      <label>Delivery Area *</label>
-      <select id="area" onchange="renderCart()">
-        <option value="60">Inside Dhaka (ঢাকার ভেতরে — ৳60)</option>
-        <option value="120">Outside Dhaka (ঢাকার বাইরে — ৳120)</option>
-      </select>
-
-      <label>Full Delivery Address *</label>
-      <textarea id="address" rows="2" placeholder="বাসা নং, রোড, এলাকা, জেলা" required></textarea>
-      
-      <label>Payment Method *</label>
-      <select id="payment">
-        <option value="Cash on Delivery">Cash on Delivery (পণ্য হাতে পেয়ে টাকা)</option>
-        <option value="bKash">bKash (Send Money)</option>
-        <option value="Nagad">Nagad (Send Money)</option>
-      </select>
-
-      <button class="btn" type="submit" style="width:100%; margin-top:18px;">CONFIRM ORDER ON WHATSAPP</button>
-    </form>
-
-    <div class="payment-info">
-      bKash / Nagad Personal: <strong id="payNum" style="color:var(--gold-light)">01618281457</strong>
-      <button type="button" class="copy-btn" onclick="copyNumber()">Copy</button>
-    </div>
-  </div>
-</section>
+<!-- PRODUCT DETAILS VIEW (Single Page Dynamic View) -->
+<div id="productDetailsPage">
+  <button class="back-btn" onclick="goHome()">← Back to Shop</button>
+  <div id="detailsContent"></div>
+</div>
 
 <section id="contact" style="text-align:center;">
   <h2>NEED HELP?</h2>
@@ -230,7 +241,7 @@
 </section>
 
 <footer>
-  <div class="logo" style="font-size:16px; margin-bottom:8px;">✦ TRENDY TOUCH</div>
+  <div class="logo" style="font-size:16px; margin-bottom:8px;" onclick="goHome()">✦ TRENDY TOUCH</div>
   <p>Premium Fashion Store in Bangladesh</p>
   <p style="margin-top:8px;">© 2026 TRENDY TOUCH. All Rights Reserved.</p>
 </footer>
@@ -238,23 +249,90 @@
 <div id="toast">Added to cart!</div>
 
 <script>
-// প্রোডাক্ট লিস্ট (এখানে image লিংক পরিবর্তন করে আপনার নিজের প্রোডাক্টের ছবি দিতে পারবেন)
 const products = [
-  { name: "Premium Cotton T-Shirt", price: 650, tag: "Best Seller", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=500&q=80" },
-  { name: "Stylish Formal Shirt", price: 950, tag: "New", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=500&q=80" },
-  { name: "Women's Elegant Dress", price: 850, tag: "Trending", img: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=500&q=80" },
-  { name: "Winter Premium Hoodie", price: 1250, tag: "Limited", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=500&q=80" },
-  { name: "Casual Drop-Shoulder", price: 750, tag: "Popular", img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=80" },
-  { name: "Classic Polo Shirt", price: 890, tag: "Premium", img: "https://images.unsplash.com/photo-1625910513413-5fc45e80a826?auto=format&fit=crop&w=500&q=80" }
+  { 
+    id: 0, 
+    name: "Premium Cotton T-Shirt", 
+    price: 650, 
+    tag: "Best Seller", 
+    img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=500&q=80",
+    desc: "100% Export Quality Cotton T-shirt. Ultra-soft fabric, breathable, and highly durable for daily casual wear.",
+    colors: ["#000000", "#ffffff", "#1e3a8a", "#dc2626"],
+    colorNames: ["Black", "White", "Navy Blue", "Red"],
+    sizes: ["S", "M", "L", "XL"],
+    quality: "Premium 180 GSM Combed Cotton"
+  },
+  { 
+    id: 1, 
+    name: "Stylish Formal Shirt", 
+    price: 950, 
+    tag: "New", 
+    img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=500&q=80",
+    desc: "Elegant formal shirt tailored for office meetings and formal occasions. Comfortable fit with wrinkle-resistant fabric.",
+    colors: ["#ffffff", "#3b82f6", "#111827"],
+    colorNames: ["White", "Sky Blue", "Black"],
+    sizes: ["M", "L", "XL"],
+    quality: "Imported Cotton Mix Fabric"
+  },
+  { 
+    id: 2, 
+    name: "Women's Elegant Dress", 
+    price: 850, 
+    tag: "Trending", 
+    img: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=500&q=80",
+    desc: "Trendy modern design dress made with comfortable, lightweight fabric suited for parties and hangouts.",
+    colors: ["#ec4899", "#8b5cf6", "#000000"],
+    colorNames: ["Pink", "Purple", "Black"],
+    sizes: ["S", "M", "L"],
+    quality: "Georgette with Soft Inner Lining"
+  },
+  { 
+    id: 3, 
+    name: "Winter Premium Hoodie", 
+    price: 1250, 
+    tag: "Limited", 
+    img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=500&q=80",
+    desc: "Heavy fleece hoodie to keep you warm and stylish during winter. Soft inner fur lining.",
+    colors: ["#374151", "#7f1d1d", "#000000"],
+    colorNames: ["Dark Grey", "Maroon", "Black"],
+    sizes: ["M", "L", "XL"],
+    quality: "Heavy Fleece 320 GSM"
+  },
+  { 
+    id: 4, 
+    name: "Casual Drop-Shoulder", 
+    price: 750, 
+    tag: "Popular", 
+    img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=80",
+    desc: "Trendy oversized drop-shoulder t-shirt for youth street style fashion.",
+    colors: ["#10b981", "#6366f1", "#000000"],
+    colorNames: ["Emerald", "Indigo", "Black"],
+    sizes: ["M", "L", "XL"],
+    quality: "Bio-washed Heavy Cotton"
+  },
+  { 
+    id: 5, 
+    name: "Classic Polo Shirt", 
+    price: 890, 
+    tag: "Premium", 
+    img: "https://images.unsplash.com/photo-1625910513413-5fc45e80a826?auto=format&fit=crop&w=500&q=80",
+    desc: "Smart casual cotton polo shirt with premium collar design and durable buttons.",
+    colors: ["#1e293b", "#047857", "#9a3412"],
+    colorNames: ["Dark Slate", "Forest Green", "Rust"],
+    sizes: ["M", "L", "XL"],
+    quality: "Lacoste Cotton Fabric"
+  }
 ];
 
 let cart = [];
+let selectedColor = "";
+let selectedSize = "";
 
-// প্রোডাক্ট কার্ড রেন্ডার
+// Render Product Grid
 const productArea = document.getElementById("products");
 products.forEach((p, i) => {
   productArea.innerHTML += `
-    <div class="card">
+    <div class="card" onclick="openDetails(${i})">
       <div class="pic">
         <span class="badge">${p.tag}</span>
         <img src="${p.img}" alt="${p.name}">
@@ -264,38 +342,103 @@ products.forEach((p, i) => {
           <h3>${p.name}</h3>
           <div class="price">৳${p.price}</div>
         </div>
-        <div>
-          <select id="size-${i}" class="size-select">
-            <option value="M">Size: M</option>
-            <option value="L">Size: L</option>
-            <option value="XL">Size: XL</option>
-            <option value="S">Size: S</option>
-          </select>
-          <button onclick="addCart(${i})">ADD TO CART</button>
-        </div>
+        <button class="card-btn">VIEW DETAILS</button>
       </div>
     </div>
   `;
 });
+
+function openDetails(index) {
+  const p = products[index];
+  selectedColor = p.colorNames[0];
+  selectedSize = p.sizes[0];
+
+  document.getElementById("mainView").style.display = "none";
+  const detailsPage = document.getElementById("productDetailsPage");
+  detailsPage.style.display = "block";
+  window.scrollTo(0, 0);
+
+  const colorsHtml = p.colors.map((c, idx) => `
+    <div class="color-dot ${idx === 0 ? 'active' : ''}" style="background:${c}" title="${p.colorNames[idx]}" onclick="selectColor(this, '${p.colorNames[idx]}')"></div>
+  `).join("");
+
+  const sizesHtml = p.sizes.map((s, idx) => `
+    <div class="size-chip ${idx === 0 ? 'active' : ''}" onclick="selectSize(this, '${s}')">${s}</div>
+  `).join("");
+
+  const chatMsg = encodeURIComponent(`Hi, I want to know more about this product: ${p.name} (Price: ৳${p.price})`);
+
+  document.getElementById("detailsContent").innerHTML = `
+    <div class="details-img-box">
+      <img src="${p.img}" alt="${p.name}">
+    </div>
+    <div class="details-info">
+      <span style="color:var(--gold); font-size:12px; font-weight:600; text-transform:uppercase;">${p.tag}</span>
+      <h1>${p.name}</h1>
+      <div class="details-price">৳${p.price}</div>
+      <p class="details-desc">${p.desc}</p>
+      
+      <div class="option-group">
+        <label>Quality & Fabric:</label>
+        <p style="color:#ddd; font-size:13px;">✨ ${p.quality}</p>
+      </div>
+
+      <div class="option-group">
+        <label>Available Colors: <span id="chosenColor" style="color:#fff;">${selectedColor}</span></label>
+        <div class="color-dots">${colorsHtml}</div>
+      </div>
+
+      <div class="option-group" style="margin-top:15px;">
+        <label>Available Sizes:</label>
+        <div class="size-chips">${sizesHtml}</div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="add-cart-big" onclick="addFromDetails(${i})">ADD TO CART</button>
+        <a class="chat-btn-big" href="https://wa.me/8801618281457?text=${chatMsg}" target="_blank">💬 CHAT</a>
+      </div>
+    </div>
+  `;
+}
+
+function selectColor(element, colorName) {
+  document.querySelectorAll('.color-dot').forEach(el => el.classList.remove('active'));
+  element.classList.add('active');
+  selectedColor = colorName;
+  document.getElementById('chosenColor').innerText = colorName;
+}
+
+function selectSize(element, sizeName) {
+  document.querySelectorAll('.size-chip').forEach(el => el.classList.remove('active'));
+  element.classList.add('active');
+  selectedSize = sizeName;
+}
+
+function addFromDetails(i) {
+  const p = products[i];
+  const existing = cart.find(item => item.name === p.name && item.size === selectedSize && item.color === selectedColor);
+  
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ name: p.name, price: p.price, size: selectedSize, color: selectedColor, qty: 1 });
+  }
+  renderCart();
+  showToast(`✓ Added: ${p.name} (${selectedColor}, ${selectedSize})`);
+  goHome();
+}
+
+function goHome() {
+  document.getElementById("productDetailsPage").style.display = "none";
+  document.getElementById("mainView").style.display = "block";
+  window.scrollTo(0, 0);
+}
 
 function showToast(text) {
   const t = document.getElementById("toast");
   t.innerText = text;
   t.className = "show";
   setTimeout(() => { t.className = t.className.replace("show", ""); }, 2200);
-}
-
-function addCart(i) {
-  const size = document.getElementById(`size-${i}`).value;
-  const existing = cart.find(item => item.name === products[i].name && item.size === size);
-  
-  if (existing) {
-    existing.qty += 1;
-  } else {
-    cart.push({ name: products[i].name, price: products[i].price, size: size, qty: 1 });
-  }
-  renderCart();
-  showToast(`✓ ${products[i].name} (${size}) added!`);
 }
 
 function changeQty(index, delta) {
@@ -326,7 +469,8 @@ function renderCart() {
   cartDiv.innerHTML = cart.map((item, idx) => `
     <div class="cart-row">
       <div>
-        <strong>${item.name}</strong> <span style="color:var(--gold); font-size:12px;">[${item.size}]</span><br>
+        <strong>${item.name}</strong><br>
+        <span style="color:var(--gold); font-size:12px;">Color: ${item.color} | Size: ${item.size}</span><br>
         <small style="color:#aaa;">৳${item.price} × ${item.qty} = ৳${item.price * item.qty}</small>
       </div>
       <div class="qty-ctrl">
@@ -368,7 +512,7 @@ document.getElementById("orderForm").addEventListener("submit", function(e) {
   const delivery = parseInt(document.getElementById("area").value);
   const total = subtotal + delivery;
 
-  const itemsList = cart.map((p, i) => `${i+1}. ${p.name} (Size: ${p.size}) x${p.qty} - ৳${p.price * p.qty}`).join("%0A");
+  const itemsList = cart.map((p, i) => `${i+1}. ${p.name}%0A   - Color: ${p.color}, Size: ${p.size}%0A   - Qty: ${p.qty} x ৳${p.price} = ৳${p.price * p.qty}`).join("%0A");
 
   const msg = `*NEW ORDER - TRENDY TOUCH*%0A` +
               `--------------------------%0A` +
