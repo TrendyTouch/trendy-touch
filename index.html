@@ -19,12 +19,19 @@
   /* Header */
   header {
     position: sticky; top: 0; z-index: 100;
-    padding: 15px 20px; background: rgba(13, 13, 13, 0.95);
+    padding: 12px 20px; background: rgba(13, 13, 13, 0.95);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(212, 170, 85, 0.3);
     display: flex; justify-content: space-between; align-items: center;
   }
-  .logo { font-family: 'Cinzel', serif; color: var(--gold); font-size: 20px; font-weight: 700; letter-spacing: 1px; cursor: pointer; }
+  .logo { cursor: pointer; display: flex; align-items: center; }
+  .logo img {
+    height: 42px; /* লোগোর সাইজ সুন্দর রাখার জন্য */
+    width: auto;
+    object-fit: contain;
+    background: transparent;
+  }
+  
   nav { display: flex; align-items: center; gap: 15px; }
   nav a { color: #e0e0e0; text-decoration: none; font-size: 13px; font-weight: 500; transition: 0.3s; cursor: pointer; }
   nav a:hover { color: var(--gold); }
@@ -84,7 +91,7 @@
     padding: 9px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer;
   }
 
-  /* Product Details Page View */
+  /* Product Details View */
   #productDetailsPage { display: none; padding: 30px 16px; max-width: 900px; margin: auto; }
   .back-btn { background: #222; color: var(--gold); border: 1px solid var(--gold); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; margin-bottom: 20px; display: inline-block; }
   .details-container { display: grid; grid-template-columns: 1fr; gap: 25px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
@@ -147,7 +154,10 @@
 <body>
 
 <header>
-  <div class="logo" onclick="goHome()">✦ TRENDY TOUCH</div>
+  <!-- লোগো ইমেজ এখানে যুক্ত করা হয়েছে -->
+  <div class="logo" onclick="goHome()">
+    <img src="https://i.ibb.co.com/84j7q9Z3/381.png" alt="Trendy Touch Logo">
+  </div>
   <nav>
     <a onclick="goHome()">Home</a>
     <a onclick="goHome()">Shop</a>
@@ -228,7 +238,7 @@
   </section>
 </div>
 
-<!-- PRODUCT DETAILS VIEW (Single Page Dynamic View) -->
+<!-- PRODUCT DETAILS VIEW -->
 <div id="productDetailsPage">
   <button class="back-btn" onclick="goHome()">← Back to Shop</button>
   <div id="detailsContent"></div>
@@ -241,7 +251,9 @@
 </section>
 
 <footer>
-  <div class="logo" style="font-size:16px; margin-bottom:8px;" onclick="goHome()">✦ TRENDY TOUCH</div>
+  <div class="logo" style="justify-content: center; margin-bottom:10px;" onclick="goHome()">
+    <img src="https://i.ibb.co.com/84j7q9Z3/381.png" alt="Trendy Touch Logo" style="height:35px;">
+  </div>
   <p>Premium Fashion Store in Bangladesh</p>
   <p style="margin-top:8px;">© 2026 TRENDY TOUCH. All Rights Reserved.</p>
 </footer>
@@ -328,7 +340,6 @@ let cart = [];
 let selectedColor = "";
 let selectedSize = "";
 
-// Render Product Grid
 const productArea = document.getElementById("products");
 products.forEach((p, i) => {
   productArea.innerHTML += `
@@ -369,33 +380,35 @@ function openDetails(index) {
   const chatMsg = encodeURIComponent(`Hi, I want to know more about this product: ${p.name} (Price: ৳${p.price})`);
 
   document.getElementById("detailsContent").innerHTML = `
-    <div class="details-img-box">
-      <img src="${p.img}" alt="${p.name}">
-    </div>
-    <div class="details-info">
-      <span style="color:var(--gold); font-size:12px; font-weight:600; text-transform:uppercase;">${p.tag}</span>
-      <h1>${p.name}</h1>
-      <div class="details-price">৳${p.price}</div>
-      <p class="details-desc">${p.desc}</p>
-      
-      <div class="option-group">
-        <label>Quality & Fabric:</label>
-        <p style="color:#ddd; font-size:13px;">✨ ${p.quality}</p>
+    <div class="details-container">
+      <div class="details-img-box">
+        <img src="${p.img}" alt="${p.name}">
       </div>
+      <div class="details-info">
+        <span style="color:var(--gold); font-size:12px; font-weight:600; text-transform:uppercase;">${p.tag}</span>
+        <h1>${p.name}</h1>
+        <div class="details-price">৳${p.price}</div>
+        <p class="details-desc">${p.desc}</p>
+        
+        <div class="option-group">
+          <label>Quality & Fabric:</label>
+          <p style="color:#ddd; font-size:13px;">✨ ${p.quality}</p>
+        </div>
 
-      <div class="option-group">
-        <label>Available Colors: <span id="chosenColor" style="color:#fff;">${selectedColor}</span></label>
-        <div class="color-dots">${colorsHtml}</div>
-      </div>
+        <div class="option-group">
+          <label>Available Colors: <span id="chosenColor" style="color:#fff;">${selectedColor}</span></label>
+          <div class="color-dots">${colorsHtml}</div>
+        </div>
 
-      <div class="option-group" style="margin-top:15px;">
-        <label>Available Sizes:</label>
-        <div class="size-chips">${sizesHtml}</div>
-      </div>
+        <div class="option-group" style="margin-top:15px;">
+          <label>Available Sizes:</label>
+          <div class="size-chips">${sizesHtml}</div>
+        </div>
 
-      <div class="action-buttons">
-        <button class="add-cart-big" onclick="addFromDetails(${i})">ADD TO CART</button>
-        <a class="chat-btn-big" href="https://wa.me/8801618281457?text=${chatMsg}" target="_blank">💬 CHAT</a>
+        <div class="action-buttons">
+          <button class="add-cart-big" onclick="addFromDetails(${i})">ADD TO CART</button>
+          <a class="chat-btn-big" href="https://wa.me/8801618281457?text=${chatMsg}" target="_blank">💬 CHAT</a>
+        </div>
       </div>
     </div>
   `;
