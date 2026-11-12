@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TRENDY TOUCH | Premium Fashion Store</title>
+<title>TRENDY TOUCH | Premium Fashion</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -238,6 +238,7 @@
 <div id="toast">Added to cart!</div>
 
 <script>
+// প্রোডাক্ট লিস্ট (এখানে image লিংক পরিবর্তন করে আপনার নিজের প্রোডাক্টের ছবি দিতে পারবেন)
 const products = [
   { name: "Premium Cotton T-Shirt", price: 650, tag: "Best Seller", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=500&q=80" },
   { name: "Stylish Formal Shirt", price: 950, tag: "New", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=500&q=80" },
@@ -249,6 +250,7 @@ const products = [
 
 let cart = [];
 
+// প্রোডাক্ট কার্ড রেন্ডার
 const productArea = document.getElementById("products");
 products.forEach((p, i) => {
   productArea.innerHTML += `
